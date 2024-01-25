@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Script to list all databases in MongoDB
+
+# Execute MongoDB command to list databases
+mongo --quiet --eval "db.adminCommand({ listDatabases: 1 })" | \
+  grep "name" | \
+  awk '{print $2}' | \
+  tr -d ',"' | \
+  grep -v '^admin\|^config\|^local'
